@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "813378935696",
+    "project_id": "bomber-app-844bc",
+    "storage_bucket": "bomber-app-844bc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:813378935696:android:ea09f935abd98b3541b115",
+        "android_client_info": {
+          "package_name": "com.mckakos.corp.gel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsUK2X_medPDwQBi-upgSA481A3Em1778"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:813378935696:android:e262617e291fd53741b115",
+        "android_client_info": {
+          "package_name": "com.mckakos.corp.gel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsUK2X_medPDwQBi-upgSA481A3Em1778"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

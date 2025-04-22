@@ -63,4 +63,24 @@ class ApiAuth {
       return {'ok': false, 'message': 'Error inesperado: $e', 'code': 500};
     }
   }
+
+  Future<bool> saveNotificationToken(String id, String token) async {
+    try {
+      final response = await dio.put(
+        '/personal/notification/${int.tryParse(id)}',
+        data: {'notification_token': token},
+      );
+
+      // Verificamos que la respuesta tenga el formato esperado
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } on DioException catch (_) {
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
 }

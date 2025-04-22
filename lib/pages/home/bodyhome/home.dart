@@ -6,6 +6,8 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [UserProfileCard()]);
+    return SingleChildScrollView(
+      child: Column(children: [ViewProjectsWidget()]),
+    );
   }
 }

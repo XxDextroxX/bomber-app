@@ -50,7 +50,9 @@ class LoginProvider extends _$LoginProvider {
       );
       final userModel = UserModel.instance;
       GeneralUtils.setToken(userModel.token);
-      GeneralUtils.setUserId(userModel.personal.idPersonal.toString());
+      await GeneralUtils.setUserId(userModel.personal.idPersonal.toString());
+      final saveToken = UpdateNotificationToken();
+      await saveToken.updateNotificationToken();
       // ignore: use_build_context_synchronously
       context.go(PathRouter.home);
     } else {
@@ -69,7 +71,9 @@ class LoginProvider extends _$LoginProvider {
     if (response['ok'] == true) {
       final userModel = UserModel.instance;
       GeneralUtils.setToken(userModel.token);
-      GeneralUtils.setUserId(userModel.personal.idPersonal.toString());
+      await GeneralUtils.setUserId(userModel.personal.idPersonal.toString());
+      final saveToken = UpdateNotificationToken();
+      await saveToken.updateNotificationToken();
       // ignore: use_build_context_synchronously
       context.go(PathRouter.home);
     } else {
@@ -89,5 +93,18 @@ class LoginProvider extends _$LoginProvider {
     GeneralUtils.deleteDataCache();
     // ignore: use_build_context_synchronously
     context.go(PathRouter.login);
+  }
+}
+
+class UpdateNotificationToken {
+  Future<void> updateNotificationToken() async {
+    final id = await GeneralUtils.getUserId();
+    final token = await GeneralUtils.saveToken();
+    print('token: $token');
+    final apiAuth = ApiAuth();
+    final userModel = UserModel.instance;
+    userModel.personal.notificationToken = token;
+    print('token: ${userModel.personal.notificationToken}');
+    await apiAuth.saveNotificationToken(id!, token!);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:bomber_app/config/config.dart';
+import 'package:bomber_app/models/models.dart';
 import 'package:bomber_app/pages/pages.dart';
 import 'package:go_router/go_router.dart';
 
@@ -13,6 +14,11 @@ final appRouter = GoRouter(
     GoRoute(
       path: PathRouter.splashScreen,
       builder: (context, state) => const SplashScreen(),
+    ),
+    GoRoute(
+      path: PathRouter.emergencyPage,
+      builder:
+          (_, state) => EmergencyPage(project: state.extra as ProjectsModel),
     ),
   ],
 );

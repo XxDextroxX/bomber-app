@@ -15,7 +15,7 @@ class SnackbarCustom {
       ),
       backgroundColor:
           isNormal
-              ? Colors.black
+              ? Colors.green
               : Colors.red, // Azul para normal, rojo para alerta
       duration: Duration(seconds: 3), // Duración de 3 segundos
     );

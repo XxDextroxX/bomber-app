@@ -10,24 +10,32 @@ class MyTeam extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final getTeamByCapitan = ref.watch(getTeamByCapitanProvider);
     return WidgetCardGeneral(
-      child: getTeamByCapitan.when(
-        data: (data) {
-          print('data: $data');
-          return ListView.builder(
-            itemCount: data.length,
-            itemBuilder: (context, index) {
-              final team = data[index];
-              return WidgetCardTeam(team: team);
-            },
-          );
-        },
-        error: (error, stackTrace) {
-          print('error: $error');
-          return Text(error.toString());
-        },
-        loading: () {
-          return const CircularProgressIndicator();
-        },
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            UserProfileCard(),
+            getTeamByCapitan.when(
+              data: (data) {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: data.length,
+                  itemBuilder: (context, index) {
+                    final team = data[index];
+                    return WidgetCardTeam(team: team);
+                  },
+                );
+              },
+              error: (error, stackTrace) {
+                print('error: $error');
+                return Text(error.toString());
+              },
+              loading: () {
+                return const CircularProgressIndicator();
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

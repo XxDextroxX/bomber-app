@@ -1,3 +1,5 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
+
 import 'services/key_value_i.dart' show KeyValuesImplementation;
 
 class GeneralUtils {
@@ -25,8 +27,12 @@ class GeneralUtils {
   }
 
   static Future<void> setUserId(String userId) async {
-    print('userId:loadd $userId');
     final keyValueStorage = KeyValuesImplementation();
     await keyValueStorage.setKeyValue('userId', userId);
+  }
+
+  static Future<String?> saveToken() async {
+    final tokenNotifiation = await FirebaseMessaging.instance.getToken();
+    return tokenNotifiation;
   }
 }
