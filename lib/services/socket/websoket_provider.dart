@@ -4,6 +4,8 @@ import 'package:bomber_app/models/models.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class WebSocketService {
+  // final urlSocket = "https://www.api.bombero.mckakos.com";
+  final urlSocket = "http://192.168.0.4:3005";
   IO.Socket? _socket;
   final _projectsController = StreamController<List<ProjectsModel>>.broadcast();
   final _responsesController =
@@ -14,7 +16,7 @@ class WebSocketService {
       _responsesController.stream;
 
   void connect() {
-    _socket = IO.io('http://192.168.10.21:3005', <String, dynamic>{
+    _socket = IO.io(urlSocket, <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
     });

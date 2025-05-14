@@ -20,5 +20,13 @@ final appRouter = GoRouter(
       builder:
           (_, state) => EmergencyPage(project: state.extra as ProjectsModel),
     ),
+    GoRoute(
+      path: PathRouter.privacyPolicy,
+      builder: (context, state) => const PrivacyPolicy(),
+    ),
+    GoRoute(
+      path: PathRouter.termsAndConditions,
+      builder: (context, state) => const TermsAndConditions(),
+    ),
   ],
 );

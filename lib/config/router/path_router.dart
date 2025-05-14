@@ -4,4 +4,6 @@ class PathRouter {
   static const String logout = '/logout';
   static const String splashScreen = '/splash-screen';
   static const String emergencyPage = '/emergency-page';
+  static const String termsAndConditions = '/terms-and-conditions';
+  static const String privacyPolicy = '/privacy-policy';
 }

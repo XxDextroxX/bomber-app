@@ -12,6 +12,7 @@ class MyTeam extends ConsumerWidget {
     return WidgetCardGeneral(
       child: SingleChildScrollView(
         child: Column(
+          spacing: 20,
           children: [
             UserProfileCard(),
             getTeamByCapitan.when(

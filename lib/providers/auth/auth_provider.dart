@@ -108,3 +108,10 @@ class UpdateNotificationToken {
     await apiAuth.saveNotificationToken(id!, token!);
   }
 }
+
+class DeleteAccount {
+  Future<Map<String, dynamic>> deleteAccount(String id, String token) async {
+    final apiAuth = ApiAuth();
+    return await apiAuth.deleteAccount(id, token);
+  }
+}

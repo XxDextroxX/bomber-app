@@ -19,7 +19,7 @@ class HomePageState extends ConsumerState<HomePage> {
     Settings(),
   ];
 
-  static const List<String> _titles = <String>['Mi equipo', 'Home', 'Logout'];
+  static const List<String> _titles = <String>['Mi equipo', 'Home', 'Ajustes'];
   int _page = 1;
   @override
   Widget build(BuildContext context) {

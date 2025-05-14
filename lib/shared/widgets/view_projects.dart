@@ -1,5 +1,3 @@
-// lib/shared/widgets/proyectos_recientes_widget.dart
-import 'package:animate_do/animate_do.dart';
 import 'package:bomber_app/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -41,14 +39,12 @@ class ViewProjectsWidget extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              HeartBeat(
-                infinite: true,
-                child: Text(
-                  'Proyectos Recientes',
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+              const SizedBox(height: 10),
+              Text(
+                'EMERGENCIAS',
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
               ),
               SizedBox(height: 10),
@@ -69,7 +65,9 @@ class ViewProjectsWidget extends ConsumerWidget {
         print('Error en WebSocket: $error');
         return SizedBox.shrink(); // No mostrar nada en caso de error
       },
-      loading: () => SizedBox.shrink(), // No mostrar nada mientras carga
+      loading:
+          () =>
+              const CircularProgressIndicator(), // No mostrar nada mientras carga
     );
   }
 }

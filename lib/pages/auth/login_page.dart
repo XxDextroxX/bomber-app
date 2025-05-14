@@ -16,11 +16,18 @@ class LoginPage extends ConsumerStatefulWidget {
 
 class LoginPageState extends ConsumerState<LoginPage> {
   late LoadingButtonController _btnController;
+  bool showPassword = false;
 
   @override
   void initState() {
     _btnController = LoadingButtonController();
     super.initState();
+  }
+
+  void changeShowPassword() {
+    setState(() {
+      showPassword = !showPassword;
+    });
   }
 
   @override
@@ -111,9 +118,18 @@ class LoginPageState extends ConsumerState<LoginPage> {
                             hintText: 'Contraseña',
                             maxLines: 1,
                             textCapitalization: false,
-                            obscureText: true,
+                            obscureText: !showPassword,
                             onChanged: loginProviderNotifier.setPassword,
                             errorText: loginProvider.password.errorMessage,
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                showPassword
+                                    ? Icons.visibility_rounded
+                                    : Icons.visibility_off_rounded,
+                                color: Colors.black,
+                              ),
+                              onPressed: changeShowPassword,
+                            ),
                           ),
                         ),
                         FadeInUp(
