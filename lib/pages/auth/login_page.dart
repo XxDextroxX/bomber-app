@@ -104,7 +104,7 @@ class LoginPageState extends ConsumerState<LoginPage> {
                           duration: const Duration(seconds: 1),
                           from: 200,
                           child: CustomInputs(
-                            hintText: 'Correo',
+                            hintText: 'Cédula',
                             textCapitalization: false,
                             keyboardType: TextInputType.emailAddress,
                             onChanged: loginProviderNotifier.setEmail,

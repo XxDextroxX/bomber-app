@@ -1,4 +1,5 @@
 import 'package:bomber_app/pages/home/bodyhome/body.dart';
+import 'package:bomber_app/pages/pages.dart';
 import 'package:bomber_app/providers/providers.dart' show loginProviderProvider;
 import 'package:bomber_app/utils/utils.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -16,10 +17,16 @@ class HomePageState extends ConsumerState<HomePage> {
   static const List<Widget> _widgetOptions = <Widget>[
     MyTeam(),
     Home(),
+    ScannerBox(),
     Settings(),
   ];
 
-  static const List<String> _titles = <String>['Mi equipo', 'Home', 'Ajustes'];
+  static const List<String> _titles = <String>[
+    'Mi equipo',
+    'Home',
+    'QR',
+    'Ajustes',
+  ];
   int _page = 1;
   @override
   Widget build(BuildContext context) {
@@ -51,6 +58,7 @@ class HomePageState extends ConsumerState<HomePage> {
         items: <Widget>[
           Icon(Icons.people, size: 30),
           Icon(Icons.home, size: 30),
+          Icon(Icons.qr_code, size: 30),
           Icon(Icons.settings, size: 30),
         ],
         onTap: (index) {

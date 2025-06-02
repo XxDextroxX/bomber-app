@@ -35,4 +35,13 @@ class GeneralUtils {
     final tokenNotifiation = await FirebaseMessaging.instance.getToken();
     return tokenNotifiation;
   }
+
+  static String extractCode(String input) {
+    // Regular expression to match "Batch: <value>" and capture the value
+    final RegExp regex = RegExp(r'Batch:\s*(\w+)');
+    final match = regex.firstMatch(input);
+
+    // Return the captured value or an empty string if no match
+    return match != null ? match.group(1) ?? '' : '';
+  }
 }

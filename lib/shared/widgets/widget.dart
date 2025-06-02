@@ -11,3 +11,5 @@ export 'view_personal_avaliable.dart';
 export 'widget_personal_avabiable.dart';
 export 'widget_by.dart';
 export 'custom_dialog.dart';
+export 'scanner.dart';
+export 'widget_box.dart';
