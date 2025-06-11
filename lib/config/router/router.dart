@@ -28,5 +28,9 @@ final appRouter = GoRouter(
       path: PathRouter.termsAndConditions,
       builder: (context, state) => const TermsAndConditions(),
     ),
+    GoRoute(
+      path: PathRouter.pageBox,
+      builder: (context, state) => PageBox(code: state.extra as String),
+    ),
   ],
 );
