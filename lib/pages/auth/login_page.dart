@@ -1,8 +1,8 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:bomber_app/config/config.dart';
 import 'package:bomber_app/providers/providers.dart' show loginProviderProvider;
-import 'package:bomber_app/utils/utils.dart';
 import 'package:bomber_app/shared/widgets/widget.dart';
+import 'package:bomber_app/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_icon_button/loading_icon_button.dart';
@@ -44,10 +44,7 @@ class LoginPageState extends ConsumerState<LoginPage> {
               width: size.width,
               height: size.height * 0.7,
               decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(PathAssets.login),
-                  fit: BoxFit.cover,
-                ),
+                image: DecorationImage(image: AssetImage(PathAssets.login), fit: BoxFit.cover),
               ),
             ),
           ),
@@ -77,25 +74,16 @@ class LoginPageState extends ConsumerState<LoginPage> {
                     width: size.width,
                     decoration: BoxDecoration(
                       color: Colors.transparent,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(25),
-                        topRight: Radius.circular(25),
-                      ),
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25)),
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 20,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                     height: size.height * 0.4,
                     width: size.width,
                     decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(25),
-                        topRight: Radius.circular(25),
-                      ),
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25)),
                     ),
                     child: Column(
                       spacing: 20,
@@ -123,9 +111,7 @@ class LoginPageState extends ConsumerState<LoginPage> {
                             errorText: loginProvider.password.errorMessage,
                             suffixIcon: IconButton(
                               icon: Icon(
-                                showPassword
-                                    ? Icons.visibility_rounded
-                                    : Icons.visibility_off_rounded,
+                                showPassword ? Icons.visibility_rounded : Icons.visibility_off_rounded,
                                 color: Colors.black,
                               ),
                               onPressed: changeShowPassword,
