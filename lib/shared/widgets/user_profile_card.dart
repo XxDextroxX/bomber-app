@@ -57,11 +57,13 @@ class UserProfileCard extends StatelessWidget {
                 size: 30,
               ),
               const SizedBox(width: 10),
-              Text(
-                'Perfil del Bombero',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white, // Ajusta según tu tema
+              Expanded(
+                child: Text(
+                  'Perfil del Bombero',
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white, // Ajusta según tu tema
+                  ),
                 ),
               ),
             ],

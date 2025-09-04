@@ -15,18 +15,20 @@ class Settings extends ConsumerWidget {
     final loginProviderNotifier = ref.watch(loginProviderProvider.notifier);
 
     return WidgetCardGeneral(
-      child: Column(
-        spacing: 20,
-        children: [
-          DeveloperFooter(),
-          _btn('Privacidad y políticas', PathRouter.privacyPolicy, context),
-          _btn(
-            'Términos y condiciones',
-            PathRouter.termsAndConditions,
-            context,
-          ),
-          _deleteAccount('Eliminar cuenta', context, loginProviderNotifier),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          spacing: 20,
+          children: [
+            DeveloperFooter(),
+            _btn('Privacidad y políticas', PathRouter.privacyPolicy, context),
+            _btn(
+              'Términos y condiciones',
+              PathRouter.termsAndConditions,
+              context,
+            ),
+            _deleteAccount('Eliminar cuenta', context, loginProviderNotifier),
+          ],
+        ),
       ),
     );
   }
