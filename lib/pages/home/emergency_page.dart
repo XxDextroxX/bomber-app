@@ -18,7 +18,8 @@ class EmergencyPage extends ConsumerWidget {
       appBar: AppBar(
         title: Text(
           'Emergencia: ${project.nombre}',
-          style: const TextStyle(color: Color(0xFFFFFFFF)), // primaryTextColor
+          maxLines: 2,
+          style: const TextStyle( color: Color(0xFFFFFFFF)), // primaryTextColor
         ),
       ),
       body: SingleChildScrollView(

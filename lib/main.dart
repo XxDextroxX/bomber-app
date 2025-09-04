@@ -16,7 +16,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await Environment.initEnvirontment();
-  PushNotifications.initialize();
+  await PushNotifications.initialize();
   FirebaseMessaging.onBackgroundMessage(_firebaseBackgroundHandler);
   await pushNotifications.setupFlutterNotifications();
   runApp(ProviderScope(child: const MyApp()));
