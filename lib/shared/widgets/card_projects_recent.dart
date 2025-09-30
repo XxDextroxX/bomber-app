@@ -38,14 +38,29 @@ class _ProjectsRecentListState extends State<ProjectsRecentList>
     super.dispose();
   }
 
+  bool _isExpired() {
+    try {
+      final creationDate = DateTime.parse(widget.proyecto.fechaCreacion);
+      final now = DateTime.now();
+      final difference = now.difference(creationDate);
+      return difference.inHours >= 1;
+    } catch (e) {
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final isExpired = _isExpired();
+
     return FadeInUp(
       duration: const Duration(milliseconds: 400),
       child: GestureDetector(
-        onTap: () {
-          context.push(PathRouter.emergencyPage, extra: widget.proyecto);
-        },
+        onTap: isExpired
+            ? null
+            : () {
+                context.push(PathRouter.emergencyPage, extra: widget.proyecto);
+              },
         child: Container(
           margin: const EdgeInsets.only(bottom: 16),
           decoration: BoxDecoration(
@@ -53,7 +68,7 @@ class _ProjectsRecentListState extends State<ProjectsRecentList>
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: Colors.red.shade200.withOpacity(0.6),
+                color: isExpired ? Colors.grey.shade300 : Colors.red.shade200,
                 blurRadius: 20,
                 offset: const Offset(0, 10),
                 spreadRadius: 0,
@@ -85,8 +100,9 @@ class _ProjectsRecentListState extends State<ProjectsRecentList>
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.red.shade400
-                                  .withOpacity(_pulseAnimation.value - 0.5),
+                              color: Colors.red.shade400.withOpacity(
+                                _pulseAnimation.value - 0.5,
+                              ),
                               blurRadius: 10,
                               spreadRadius: 2,
                             ),
@@ -102,6 +118,7 @@ class _ProjectsRecentListState extends State<ProjectsRecentList>
                   child: Row(
                     children: [
                       const SizedBox(width: 12),
+
                       // Ícono con animación de pulso
                       AnimatedBuilder(
                         animation: _pulseAnimation,
@@ -120,8 +137,9 @@ class _ProjectsRecentListState extends State<ProjectsRecentList>
                               shape: BoxShape.circle,
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.red.shade300
-                                      .withOpacity(_pulseAnimation.value - 0.3),
+                                  color: Colors.red.shade300.withOpacity(
+                                    _pulseAnimation.value - 0.3,
+                                  ),
                                   blurRadius: 20,
                                   spreadRadius: 3,
                                 ),
@@ -186,6 +204,7 @@ class _ProjectsRecentListState extends State<ProjectsRecentList>
                                     },
                                   ),
                                   const SizedBox(width: 8),
+
                                   const Text(
                                     'EN CURSO',
                                     style: TextStyle(
@@ -199,6 +218,7 @@ class _ProjectsRecentListState extends State<ProjectsRecentList>
                               ),
                             ),
                             const SizedBox(height: 12),
+
                             // Título
                             Text(
                               widget.proyecto.nombre,
@@ -213,40 +233,90 @@ class _ProjectsRecentListState extends State<ProjectsRecentList>
                             ),
                             const SizedBox(height: 8),
                             // Fecha y ubicación
-                            Row(
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Icon(
-                                  Icons.access_time_rounded,
-                                  color: Colors.grey.shade600,
-                                  size: 16,
-                                ),
-                                const SizedBox(width: 6),
-                                Text(
-                                  widget.proyecto.fechaCreacion.substring(0, 10),
-                                  style: TextStyle(
-                                    color: Colors.grey.shade600,
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                const SizedBox(width: 16),
-                                Icon(
-                                  Icons.location_on_rounded,
-                                  color: Colors.grey.shade600,
-                                  size: 16,
-                                ),
-                                const SizedBox(width: 4),
-                                Expanded(
-                                  child: Text(
-                                    'En sitio',
-                                    style: TextStyle(
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.access_time_rounded,
                                       color: Colors.grey.shade600,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w500,
+                                      size: 16,
                                     ),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
+                                    const SizedBox(width: 6),
+                                    Text(
+                                      widget.proyecto.fechaCreacion.substring(
+                                        0,
+                                        10,
+                                      ),
+                                      style: TextStyle(
+                                        color: Colors.grey.shade600,
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
                                 ),
+                                const SizedBox(height: 6),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.location_on_rounded,
+                                      color: Colors.grey.shade600,
+                                      size: 16,
+                                    ),
+                                    const SizedBox(width: 6),
+                                    Text(
+                                      'En sitio',
+                                      style: TextStyle(
+                                        color: Colors.grey.shade600,
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
+                                ),
+                                if (isExpired) ...[
+                                  const SizedBox(height: 10),
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 12,
+                                      vertical: 6,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey.shade700,
+                                      borderRadius: BorderRadius.circular(8),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.shade400,
+                                          blurRadius: 4,
+                                          offset: const Offset(0, 2),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Icon(
+                                          Icons.block_rounded,
+                                          color: Colors.white,
+                                          size: 14,
+                                        ),
+                                        const SizedBox(width: 6),
+                                        Text(
+                                          'CADUCADO',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 1.2,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ],
                             ),
                           ],

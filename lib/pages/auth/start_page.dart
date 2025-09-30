@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:bomber_app/config/router/path_router.dart';
+import 'package:bomber_app/shared/widgets/widget.dart';
 
 class StartPage extends StatelessWidget {
   const StartPage({super.key});
@@ -21,9 +22,7 @@ class StartPage extends StatelessWidget {
             children: [
               // Logo en la parte superior central
               const SizedBox(height: 60),
-              Center(
-                child: Image.asset('assets/logo.png', width: 200, height: 200),
-              ),
+              const Center(child: LogoWithText()),
               const Spacer(),
               // Botón de Iniciar Sesión en la parte inferior central
               Padding(

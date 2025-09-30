@@ -61,13 +61,11 @@ class LoginPageState extends ConsumerState<LoginPage> {
               ),
             ),
             // Logo en la parte superior central
-            Positioned(
+            const Positioned(
               top: 60,
               left: 0,
               right: 0,
-              child: Center(
-                child: Image.asset('assets/logo.png', width: 200, height: 200),
-              ),
+              child: Center(child: LogoWithText(height: 100)),
             ),
             // Formulario de login
             Align(

@@ -3,7 +3,11 @@
     "allow": [
       "Bash(flutter run:*)",
       "Bash(flutter build:*)",
-      "Bash(flutter clean:*)"
+      "Bash(flutter clean:*)",
+      "Bash(git checkout:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nMerge branch ''main'' of origin - mantener cambios locales\n\nResolución de conflictos manteniendo todos los cambios locales:\n- login_page.dart: mantener versión local\n- emergency_page.dart: mantener versión local\n- settings.dart: mantener versión local mejorada\n- user_profile_card.dart: mantener versión local mejorada\n- pubspec.lock: mantener versión local\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(flutter analyze:*)"
     ],
     "deny": [],
     "ask": []

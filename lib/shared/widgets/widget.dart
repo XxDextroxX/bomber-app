@@ -13,3 +13,4 @@ export 'widget_by.dart';
 export 'custom_dialog.dart';
 export 'scanner.dart';
 export 'widget_box.dart';
+export 'logo_with_text.dart';
