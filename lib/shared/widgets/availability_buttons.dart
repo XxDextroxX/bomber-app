@@ -23,49 +23,53 @@ class AvailabilityButtons extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ElevatedButton(
-            onPressed: () async {
-              if (isUpdate) {
-                await updateResponse(context, 1);
-              } else {
-                await sendResponse(context, 1);
-              }
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
-              foregroundColor: const Color(0xFFFFFFFF), // primaryTextColor
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+          Expanded(
+            child: ElevatedButton(
+              onPressed: () async {
+                if (isUpdate) {
+                  await updateResponse(context, 1);
+                } else {
+                  await sendResponse(context, 1);
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green,
+                foregroundColor: const Color(0xFFFFFFFF), // primaryTextColor
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                elevation: 5,
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              elevation: 5,
-            ),
-            child: const Text(
-              'Disponible',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              child: const Text(
+                'Disponible',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
             ),
           ),
           const SizedBox(width: 16),
-          ElevatedButton(
-            onPressed: () async {
-              if (isUpdate) {
-                await updateResponse(context, 0);
-              } else {
-                await sendResponse(context, 0);
-              }
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFFF4500), // buttonColor
-              foregroundColor: const Color(0xFFFFFFFF), // primaryTextColor
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+          Expanded(
+            child: ElevatedButton(
+              onPressed: () async {
+                if (isUpdate) {
+                  await updateResponse(context, 0);
+                } else {
+                  await sendResponse(context, 0);
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFFF4500), // buttonColor
+                foregroundColor: const Color(0xFFFFFFFF), // primaryTextColor
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                elevation: 5,
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              elevation: 5,
-            ),
-            child: const Text(
-              'No Disponible',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              child: const Text(
+                'No Disponible',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
             ),
           ),
         ],

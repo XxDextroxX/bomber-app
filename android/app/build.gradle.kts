@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "com.mckakos.corp.gel"
-    compileSdk = 34  // Asegúrate de usar 34 o superior
+    compileSdk = 35  // Asegúrate de usar 34 o superior
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
