@@ -28,13 +28,13 @@ class WidgetBox extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.qr_code, color: Colors.blue),
             title: Text(
-              'Code: ${box.code}',
+              'Código: ${box.code}',
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
           ListTile(
             leading: const Icon(Icons.inventory, color: Colors.green),
-            title: Text('Lot Name: ${box.nameLote}'),
+            title: Text('Lote: ${box.nameLote}'),
           ),
           ListTile(
             leading: const Icon(Icons.warehouse, color: Colors.orange),
@@ -46,11 +46,11 @@ class WidgetBox extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.scale, color: Colors.purple),
-            title: Text('Weight: ${box.pesoLote} g'),
+            title: Text('Peso: ${box.pesoLote} g'),
           ),
           ListTile(
             leading: const Icon(Icons.label, color: Colors.red),
-            title: Text('Reference: ${box.referenceLote}'),
+            title: Text('Referencia: ${box.referenceLote}'),
           ),
           ListTile(
             leading: const Icon(Icons.color_lens, color: Colors.teal),
@@ -69,24 +69,24 @@ class WidgetBox extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.date_range, color: Colors.blueGrey),
             title: Text(
-              'Created: ${box.fechaCreacionLote.isNotEmpty ? dateFormat.format(DateTime.parse(box.fechaCreacionLote)) : 'N/A'}',
+              'Creado: ${box.fechaCreacionLote.isNotEmpty ? dateFormat.format(DateTime.parse(box.fechaCreacionLote)) : 'N/A'}',
             ),
           ),
           ListTile(
             leading: const Icon(Icons.height, color: Colors.brown),
             title: Text(
-              'Height: ${box.alturaLote != 0.0 ? box.alturaLote : 'N/A'}',
+              'Altura: ${box.alturaLote != 0.0 ? box.alturaLote : 'N/A'}',
             ),
           ),
           ListTile(
             leading: const Icon(Icons.width_normal, color: Colors.brown),
             title: Text(
-              'Width: ${box.anchoLote != 0.0 ? box.anchoLote : 'N/A'}',
+              'Peso: ${box.anchoLote != 0.0 ? box.anchoLote : 'N/A'}',
             ),
           ),
           ListTile(
             leading: const Icon(Icons.money, color: Colors.green),
-            title: Text('Cost: ${box.cost}'),
+            title: Text('Costo: ${box.cost}'),
           ),
         ],
       ),
@@ -160,7 +160,7 @@ class WidgetBox extends StatelessWidget {
                                 Icons.production_quantity_limits,
                                 color: Colors.blue,
                               ),
-                              title: Text('Product Code: ${item.productCode}'),
+                              title: Text('Código: ${item.productCode}'),
                             ),
                             ListTile(
                               contentPadding: EdgeInsets.zero,
@@ -176,7 +176,7 @@ class WidgetBox extends StatelessWidget {
                                 Icons.category,
                                 color: Colors.orange,
                               ),
-                              title: Text('Variant: ${item.variantName}'),
+                              title: Text('Variante: ${item.variantName}'),
                             ),
                             ListTile(
                               contentPadding: EdgeInsets.zero,
@@ -185,7 +185,7 @@ class WidgetBox extends StatelessWidget {
                                 color: Colors.grey,
                               ),
                               title: Text(
-                                'Variant Title: ${item.variantTitle}',
+                                'Variante Titulo: ${item.variantTitle}',
                               ),
                             ),
                             ListTile(
@@ -202,7 +202,7 @@ class WidgetBox extends StatelessWidget {
                                 Icons.price_check,
                                 color: Colors.teal,
                               ),
-                              title: Text('Price: ${item.price}'),
+                              title: Text('Precio: ${item.price}'),
                             ),
                           ],
                         ),

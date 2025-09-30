@@ -85,14 +85,14 @@ class LoginProvider extends _$LoginProvider {
       );
       GeneralUtils.deleteDataCache();
       // ignore: use_build_context_synchronously
-      context.go(PathRouter.login);
+      context.go(PathRouter.pageStart);
     }
   }
 
   Future<void> logout(BuildContext context) async {
     GeneralUtils.deleteDataCache();
     // ignore: use_build_context_synchronously
-    context.go(PathRouter.login);
+    context.go(PathRouter.pageStart);
   }
 }
 

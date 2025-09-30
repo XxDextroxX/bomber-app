@@ -22,44 +22,96 @@ class HomePageState extends ConsumerState<HomePage> {
   ];
 
   static const List<String> _titles = <String>[
-    'Mi equipo',
-    'Home',
-    'QR',
-    'Ajustes',
+    'Mi Equipo',
+    'Emergencias',
+    'Escanear QR',
+    'Configuración',
   ];
+
+  static const List<IconData> _icons = <IconData>[
+    Icons.people_alt_rounded,
+    Icons.home_rounded,
+    Icons.qr_code_scanner_rounded,
+    Icons.settings_rounded,
+  ];
+
   int _page = 1;
+
   @override
   Widget build(BuildContext context) {
     final loginProviderNotifier = ref.watch(loginProviderProvider.notifier);
     return Scaffold(
       appBar: AppBar(
-        title: Text(_titles[_page]),
+        elevation: 0,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.red.shade700, Colors.orange.shade600],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+        title: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Icon(
+                _icons[_page],
+                color: Colors.white,
+                size: 24,
+              ),
+            ),
+            const SizedBox(width: 12),
+            Text(
+              _titles[_page],
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            tooltip: 'Logout',
-            onPressed: () async {
-              await loginProviderNotifier.logout(context);
-              SnackbarCustom.showCustomSnackBar(
-                // ignore: use_build_context_synchronously
-                context: context,
-                message: 'Se ha cerrado sesión',
-                isNormal: true,
-              );
-            },
+          Container(
+            margin: const EdgeInsets.only(right: 8),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.logout_rounded, color: Colors.white),
+              tooltip: 'Cerrar Sesión',
+              onPressed: () async {
+                await loginProviderNotifier.logout(context);
+                SnackbarCustom.showCustomSnackBar(
+                  // ignore: use_build_context_synchronously
+                  context: context,
+                  message: 'Se ha cerrado sesión',
+                  isNormal: true,
+                );
+              },
+            ),
           ),
         ],
       ),
       bottomNavigationBar: CurvedNavigationBar(
         index: _page,
-        backgroundColor: Color(0xff737373),
-        buttonBackgroundColor: Colors.black,
-        color: Colors.black,
+        height: 65,
+        backgroundColor: Colors.transparent,
+        buttonBackgroundColor: Colors.orange.shade600,
+        color: Colors.grey.shade900,
+        animationDuration: const Duration(milliseconds: 300),
         items: <Widget>[
-          Icon(Icons.people, size: 30),
-          Icon(Icons.home, size: 30),
-          Icon(Icons.qr_code, size: 30),
-          Icon(Icons.settings, size: 30),
+          Icon(Icons.people_alt_rounded, size: 28, color: Colors.white),
+          Icon(Icons.home_rounded, size: 28, color: Colors.white),
+          Icon(Icons.qr_code_scanner_rounded, size: 28, color: Colors.white),
+          Icon(Icons.settings_rounded, size: 28, color: Colors.white),
         ],
         onTap: (index) {
           setState(() {
@@ -67,7 +119,6 @@ class HomePageState extends ConsumerState<HomePage> {
           });
         },
       ),
-      // body: IndexedStack(index: _page, children: _widgetOptions),
       body: _widgetOptions[_page],
     );
   }

@@ -1,7 +1,5 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:bomber_app/config/config.dart';
 import 'package:bomber_app/providers/providers.dart' show loginProviderProvider;
-import 'package:bomber_app/utils/utils.dart';
 import 'package:bomber_app/shared/widgets/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -35,130 +33,156 @@ class LoginPageState extends ConsumerState<LoginPage> {
     final size = MediaQuery.of(context).size;
     final loginProviderNotifier = ref.watch(loginProviderProvider.notifier);
     final loginProvider = ref.watch(loginProviderProvider);
-    return Scaffold(
-      body: Stack(
-        children: [
-          Positioned(
-            top: 0,
-            child: Container(
-              width: size.width,
-              height: size.height * 0.7,
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        body: Stack(
+          children: [
+            // Fondo similar a start_page
+            Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(PathAssets.login),
-                  fit: BoxFit.cover,
+                  image: AssetImage('assets/fondo.png'),
+                  fit: BoxFit.fitHeight,
+                  alignment: Alignment(-1.0, 0),
                 ),
               ),
             ),
-          ),
-          Container(
-            height: size.height,
-            width: size.width,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Colors.black38, // Color inicial del gradiente.
-                  Colors.transparent, // Color que se disuelve.
-                ],
+            // Contenedor gris con curva pronunciada en la parte superior
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: ClipPath(
+                clipper: _CurvedTopClipper(),
+                child: Container(
+                  height: size.height * 0.7,
+                  width: size.width,
+                  color: Colors.grey.shade300,
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            height: size.height,
-            width: size.width,
-            child: SingleChildScrollView(
-              child: Column(
-                // spacing: 20,
-                children: [
-                  Container(
-                    height: size.height * 0.6,
-                    width: size.width,
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(25),
-                        topRight: Radius.circular(25),
+            // Logo en la parte superior central
+            Positioned(
+              top: 60,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Image.asset('assets/logo.png', width: 200, height: 200),
+              ),
+            ),
+            // Formulario de login
+            Align(
+              alignment: Alignment.center,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 100),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 30,
+                        vertical: 40,
                       ),
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 20,
-                    ),
-                    height: size.height * 0.4,
-                    width: size.width,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(25),
-                        topRight: Radius.circular(25),
-                      ),
-                    ),
-                    child: Column(
-                      spacing: 20,
-                      children: [
-                        FadeInRight(
-                          duration: const Duration(seconds: 1),
-                          from: 200,
-                          child: CustomInputs(
-                            hintText: 'Cédula',
-                            textCapitalization: false,
-                            keyboardType: TextInputType.emailAddress,
-                            onChanged: loginProviderNotifier.setEmail,
-                            errorText: loginProvider.ci.errorMessage,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 20,
+                            offset: const Offset(0, 10),
                           ),
-                        ),
-                        FadeInLeft(
-                          duration: const Duration(seconds: 1),
-                          from: 200,
-                          child: CustomInputs(
-                            hintText: 'Contraseña',
-                            maxLines: 1,
-                            textCapitalization: false,
-                            obscureText: !showPassword,
-                            onChanged: loginProviderNotifier.setPassword,
-                            errorText: loginProvider.password.errorMessage,
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                showPassword
-                                    ? Icons.visibility_rounded
-                                    : Icons.visibility_off_rounded,
-                                color: Colors.black,
-                              ),
-                              onPressed: changeShowPassword,
+                        ],
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          FadeInRight(
+                            duration: const Duration(seconds: 1),
+                            from: 200,
+                            child: CustomInputs(
+                              hintText: 'Cédula',
+                              textCapitalization: false,
+                              keyboardType: TextInputType.emailAddress,
+                              onChanged: loginProviderNotifier.setEmail,
+                              errorText: loginProvider.ci.errorMessage,
                             ),
                           ),
-                        ),
-                        FadeInUp(
-                          duration: const Duration(seconds: 1),
-                          // from: 100,
-                          child: CustomLoadingButton(
-                            btnController: _btnController,
-                            text: 'ENTRAR',
-                            color: Colors.white,
-                            icon: Icons.login_rounded,
-                            primaryColor: seedColor,
-                            onPressed: () async {
-                              await loginProviderNotifier.login(context);
-                              _btnController.start();
-                              _btnController.reset();
-                            },
+                          const SizedBox(height: 20),
+                          FadeInLeft(
+                            duration: const Duration(seconds: 1),
+                            from: 200,
+                            child: CustomInputs(
+                              hintText: 'Contraseña',
+                              maxLines: 1,
+                              textCapitalization: false,
+                              obscureText: !showPassword,
+                              onChanged: loginProviderNotifier.setPassword,
+                              errorText: loginProvider.password.errorMessage,
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  showPassword
+                                      ? Icons.visibility_rounded
+                                      : Icons.visibility_off_rounded,
+                                  color: Colors.black,
+                                ),
+                                onPressed: changeShowPassword,
+                              ),
+                            ),
                           ),
-                        ),
-
-                        // const Spacer(),
-                      ],
+                          const SizedBox(height: 30),
+                          FadeInUp(
+                            duration: const Duration(seconds: 1),
+                            child: CustomLoadingButton(
+                              btnController: _btnController,
+                              text: 'INICIAR SESIÓN',
+                              color: Colors.white,
+                              icon: Icons.login_rounded,
+                              primaryColor: Colors.orange,
+                              onPressed: () async {
+                                await loginProviderNotifier.login(context);
+                                _btnController.start();
+                                _btnController.reset();
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
+}
+
+class _CurvedTopClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    final path = Path();
+
+    // Comenzar desde la parte superior izquierda
+    path.lineTo(0, size.height * 0.2);
+
+    // Crear curva pronunciada hacia abajo
+    path.quadraticBezierTo(
+      size.width * 0.5, // Punto de control X (centro)
+      size.height * 0.35, // Punto de control Y (curva pronunciada hacia abajo)
+      size.width, // Punto final X
+      size.height * 0.2, // Punto final Y
+    );
+
+    // Líneas hacia las esquinas inferiores
+    path.lineTo(size.width, size.height);
+    path.lineTo(0, size.height);
+    path.close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }

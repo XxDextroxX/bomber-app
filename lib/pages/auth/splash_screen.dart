@@ -39,10 +39,9 @@ class SplashScreenState extends ConsumerState<SplashScreen>
   init() async {
     final loginProviderNotifier = ref.read(loginProviderProvider.notifier);
     final userId = await GeneralUtils.getUserId();
-    print('userId: $userId');
     if (userId == null) {
       // ignore: use_build_context_synchronously
-      context.go(PathRouter.login);
+      context.go(PathRouter.pageStart);
       return;
     }
     // ignore: use_build_context_synchronously

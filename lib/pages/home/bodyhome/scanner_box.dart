@@ -11,18 +11,29 @@ class ScannerBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScannerWidget(
-      onQRViewCreated: (controller) {
-        // Aquí podrías configurar la cámara u otras acciones
-      },
-      onScanResult: (Barcode? result) {
-        if (result != null && result.code != null) {
-          context.push(
-            PathRouter.pageBox,
-            extra: GeneralUtils.extractCode(result.code ?? ''),
-          );
-        }
-      },
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.grey.shade100, Colors.grey.shade200],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
+      child: ScannerWidget(
+        onQRViewCreated: (controller) {
+          // Aquí podrías configurar la cámara u otras acciones
+        },
+        onScanResult: (Barcode? result) {
+          if (result != null && result.code != null) {
+            context.push(
+              PathRouter.pageBox,
+              extra: GeneralUtils.extractCode(result.code ?? ''),
+            );
+          }
+        },
+      ),
     );
   }
 }

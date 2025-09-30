@@ -24,7 +24,7 @@ android {
 
     defaultConfig {
         applicationId = "com.mckakos.corp.gel"
-        minSdk = 21  // Asegúrate de que sea al menos 21
+        minSdk = flutter.minSdkVersion  // Asegúrate de que sea al menos 21
         targetSdk = 34  // Usa 34 para compatibilidad
         versionCode = flutter.versionCode
         versionName = flutter.versionName

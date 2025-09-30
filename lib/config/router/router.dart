@@ -32,5 +32,9 @@ final appRouter = GoRouter(
       path: PathRouter.pageBox,
       builder: (context, state) => PageBox(code: state.extra as String),
     ),
+    GoRoute(
+      path: PathRouter.pageStart,
+      builder: (context, state) => const StartPage(),
+    ),
   ],
 );

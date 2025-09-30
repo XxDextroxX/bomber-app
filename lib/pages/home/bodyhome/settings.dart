@@ -14,48 +14,114 @@ class Settings extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final loginProviderNotifier = ref.watch(loginProviderProvider.notifier);
 
-    return WidgetCardGeneral(
-      child: Column(
-        spacing: 20,
-        children: [
-          DeveloperFooter(),
-          _btn('Privacidad y políticas', PathRouter.privacyPolicy, context),
-          _btn(
-            'Términos y condiciones',
-            PathRouter.termsAndConditions,
-            context,
+    return SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              const SizedBox(height: 20),
+              DeveloperFooter(),
+              const SizedBox(height: 30),
+              _buildSettingsCard(
+                context,
+                icon: Icons.privacy_tip_rounded,
+                title: 'Privacidad y Políticas',
+                subtitle: 'Revisa nuestras políticas de privacidad',
+                color: Colors.blue,
+                onTap: () => context.push(PathRouter.privacyPolicy),
+              ),
+              const SizedBox(height: 16),
+              _buildSettingsCard(
+                context,
+                icon: Icons.description_rounded,
+                title: 'Términos y Condiciones',
+                subtitle: 'Lee los términos de uso de la aplicación',
+                color: Colors.green,
+                onTap: () => context.push(PathRouter.termsAndConditions),
+              ),
+              const SizedBox(height: 16),
+              _buildDeleteCard(context, loginProviderNotifier),
+              const SizedBox(height: 20),
+            ],
           ),
-          _deleteAccount('Eliminar cuenta', context, loginProviderNotifier),
-        ],
-      ),
+        ),
     );
   }
 
-  Widget _btn(String text, String path, BuildContext context) {
+  Widget _buildSettingsCard(
+    BuildContext context, {
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required MaterialColor color,
+    required VoidCallback onTap,
+  }) {
     return GestureDetector(
-      onTap: () {
-        context.push(path);
-      },
+      onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
+          gradient: LinearGradient(
+            colors: [Colors.white, Colors.grey.shade50],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: color.withOpacity(0.2),
+              blurRadius: 12,
+              offset: const Offset(0, 6),
+            ),
+          ],
         ),
-        child: Text(
-          text,
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [color.shade400, color.shade600],
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(icon, color: Colors.white, size: 28),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+                        color: Colors.grey.shade800,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      subtitle,
+                      style: TextStyle(
+                        color: Colors.grey.shade600,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(Icons.arrow_forward_ios_rounded,
+                  color: Colors.grey.shade400, size: 18),
+            ],
           ),
         ),
       ),
     );
   }
 
-  Widget _deleteAccount(
-    String text,
+  Widget _buildDeleteCard(
     BuildContext context,
     LoginProvider loginProviderNotifier,
   ) {
@@ -64,7 +130,7 @@ class Settings extends ConsumerWidget {
         CustomDialogs.generalDialog(
           context: context,
           title: 'Eliminar cuenta',
-          content: '¿Estás seguro de eliminar tu cuenta?',
+          content: '¿Estás seguro de eliminar tu cuenta?',
           onPressed: () async {
             final deleteAccount = DeleteAccount();
             final response = await deleteAccount.deleteAccount(
@@ -92,17 +158,59 @@ class Settings extends ConsumerWidget {
         );
       },
       child: Container(
-        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: Colors.red,
-          borderRadius: BorderRadius.circular(10),
+          gradient: LinearGradient(
+            colors: [Colors.red.shade500, Colors.red.shade700],
+          ),
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.red.shade300.withOpacity(0.5),
+              blurRadius: 12,
+              offset: const Offset(0, 6),
+            ),
+          ],
         ),
-        child: Text(
-          text,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(Icons.delete_forever_rounded,
+                    color: Colors.white, size: 28),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      'Eliminar cuenta',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      'Esta acción no se puede deshacer',
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(Icons.arrow_forward_ios_rounded,
+                  color: Colors.white70, size: 18),
+            ],
           ),
         ),
       ),
