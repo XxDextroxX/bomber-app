@@ -31,11 +31,20 @@ class GeneralUtils {
     await keyValueStorage.setKeyValue('userId', userId);
   }
 
-  static Future<String?> saveToken() async {
+static Future<String?> saveToken() async {
+    // En iOS necesitamos esperar a que el token APNS esté disponible primero
+    String? apnsToken = await FirebaseMessaging.instance.getAPNSToken();
+    print("apnsToken''' ${apnsToken}");
+
+    // Si no hay token APNS (en iOS), esperamos y reintentamos
+    if (apnsToken == null) {
+      await Future.delayed(const Duration(seconds: 1));
+      apnsToken = await FirebaseMessaging.instance.getAPNSToken();
+    }
+
     final tokenNotifiation = await FirebaseMessaging.instance.getToken();
     return tokenNotifiation;
   }
-
   static String extractCode(String input) {
     // Regular expression to match "Batch: <value>" and capture the value
     final RegExp regex = RegExp(r'Batch:\s*(\w+)');

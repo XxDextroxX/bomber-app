@@ -119,7 +119,16 @@ class PushNotifications {
     );
   }
 
-  static Future<String?> getDeviceToken() async {
+static Future<String?> getDeviceToken() async {
+    // En iOS necesitamos esperar a que el token APNS esté disponible
+    String? apnsToken = await _firebaseMessaging.getAPNSToken();
+
+    // Si no hay token APNS (en iOS), esperamos un poco y reintentamos
+    if (apnsToken == null) {
+      await Future.delayed(const Duration(seconds: 1));
+      apnsToken = await _firebaseMessaging.getAPNSToken();
+    }
+
     return await _firebaseMessaging.getToken();
   }
 

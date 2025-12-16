@@ -44,7 +44,7 @@
 	<string>Esta app desea enviarte notificaciones.</string>
 
 	<key>FirebaseAppDelegateProxyEnabled</key>
-	<true/>
+	<false/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
