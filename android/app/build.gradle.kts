@@ -1,3 +1,5 @@
+import java.util.Properties
+import java.io.FileInputStream
 plugins {
     id("com.android.application")
     // START: FlutterFire Configuration
@@ -7,6 +9,12 @@ plugins {
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
+val keystoreProperties = Properties()
+val keystorePropertiesFile = rootProject.file("key.properties")
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+}
+
 
 android {
     namespace = "com.mckakos.corp.gel"
@@ -25,15 +33,24 @@ android {
     defaultConfig {
         applicationId = "com.mckakos.corp.gel"
         minSdk = flutter.minSdkVersion  // Asegúrate de que sea al menos 21
-        targetSdk = 34  // Usa 34 para compatibilidad
+        targetSdk = 35  // Usa 35 para las APIs más recientes
         versionCode = flutter.versionCode
         versionName = flutter.versionName
         multiDexEnabled = true  // Habilita multidex
     }
 
+    signingConfigs {
+        create("release") {
+            keyAlias = keystoreProperties["keyAlias"] as String
+            keyPassword = keystoreProperties["keyPassword"] as String
+            storeFile = keystoreProperties["storeFile"]?.let { file(it) }
+            storePassword = keystoreProperties["storePassword"] as String
+        }
+    }
+
     buildTypes {
         release {
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 }
