@@ -32,11 +32,11 @@ android {
 
     defaultConfig {
         applicationId = "com.mckakos.corp.gel"
-        minSdk = flutter.minSdkVersion  // Asegúrate de que sea al menos 21
-        targetSdk = 35  // Usa 35 para las APIs más recientes
+        minSdk = flutter.minSdkVersion
+        targetSdk = 35
         versionCode = flutter.versionCode
         versionName = flutter.versionName
-        multiDexEnabled = true  // Habilita multidex
+        multiDexEnabled = true
     }
 
     signingConfigs {
